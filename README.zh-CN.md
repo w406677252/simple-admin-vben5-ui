@@ -21,7 +21,6 @@ Simple Admin UI 是基于 vue-vben-admin v5 二次开发的为 Simple Admin 专�
 #### [多租户版在线预览](https://tenant-preview.ryansu.tech/)
 
 - 管理员租户账号
-
   - 企业： **admin**
   - 账号: **admin**
   - 密码: **simple-admin**
@@ -110,7 +109,6 @@ Simple Admin UI 是基于 vue-vben-admin v5 二次开发的为 Simple Admin 专�
 ## Git 贡献提交规范
 
 - 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
-
   - `feat` 增加新功能
   - `fix` 修复问题/BUG
   - `style` 代码风格相关无影响运行结果的

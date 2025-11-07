@@ -1,0 +1,64 @@
+{
+  "software": {
+    "softId": "SoftId",
+    "softName": "SoftName",
+    "logoFile": "LogoFile",
+    "downloadCount": "DownloadCount",
+    "version": "Version",
+    "installFileSize": "InstallFileSize",
+    "captureFileList": "CaptureFileList",
+    "detailInfo": "DetailInfo",
+    "detailTag": "DetailTag",
+    "warmTips": "WarmTips",
+    "whatNew": "WhatNew",
+    "downloadUrl": "DownloadUrl",
+    "score": "Score",
+    "webOrApp": "WebOrApp",
+    "platform": "Platform",
+    "type": "Type",
+    "categoryId": "CategoryId",
+    "tagId": "TagId",
+    "status": "Status",
+    "addSoftware": "Add Software",
+    "editSoftware": "Edit Software",
+    "softwareList": "Software List"
+  },
+  "softwareCategory": {
+    "status": "Status",
+    "classId": "ClassId",
+    "className": "ClassName",
+    "sort": "Sort",
+    "addSoftwareCategory": "Add SoftwareCategory",
+    "editSoftwareCategory": "Edit SoftwareCategory",
+    "softwareCategoryList": "SoftwareCategory List"
+  },
+  "softwareTag": {
+    "status": "Status",
+    "tagId": "TagId",
+    "tagName": "TagName",
+    "categoryId": "CategoryId",
+    "sort": "Sort",
+    "addSoftwareTag": "Add SoftwareTag",
+    "editSoftwareTag": "Edit SoftwareTag",
+    "softwareTagList": "SoftwareTag List"
+  },
+  "softwareCategory": {
+    "status": "Status",
+    "className": "ClassName",
+    "parentId": "ParentId",
+    "type": "Type",
+    "sort": "Sort",
+    "addSoftwareCategory": "Add SoftwareCategory",
+    "editSoftwareCategory": "Edit SoftwareCategory",
+    "softwareCategoryList": "SoftwareCategory List"
+  },
+  "softwareTag": {
+    "status": "Status",
+    "tagName": "TagName",
+    "categoryId": "CategoryId",
+    "sort": "Sort",
+    "addSoftwareTag": "Add SoftwareTag",
+    "editSoftwareTag": "Edit SoftwareTag",
+    "softwareTagList": "SoftwareTag List"
+  }
+}

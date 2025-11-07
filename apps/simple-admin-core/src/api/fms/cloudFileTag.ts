@@ -1,16 +1,17 @@
-import {
-  type BaseDataResp,
-  type BaseIDReq,
-  type BaseIDsReq,
-  type BaseListReq,
-  type BaseResp,
-} from '#/api/model/baseModel';
-import { requestClient } from '#/api/request';
-
-import {
-  type CloudFileTagInfo,
-  type CloudFileTagListResp,
+import type {
+  CloudFileTagInfo,
+  CloudFileTagListResp,
 } from './model/cloudFileTagModel';
+
+import type {
+  BaseDataResp,
+  BaseIDReq,
+  BaseIDsReq,
+  BaseListReq,
+  BaseResp,
+} from '#/api/model/baseModel';
+
+import { requestClient } from '#/api/request';
 
 enum Api {
   CreateCloudFileTag = '/fms-api/cloud_file_tag/create',

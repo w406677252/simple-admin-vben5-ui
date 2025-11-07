@@ -1,0 +1,24 @@
+{
+  "game": {
+    "name": "Name",
+    "description": "Description",
+    "icon": "Icon",
+    "coverImage": "CoverImage",
+    "platform": "Platform",
+    "packageUrl": "PackageUrl",
+    "downloadUrl": "DownloadUrl",
+    "version": "Version",
+    "fileSize": "FileSize",
+    "developer": "Developer",
+    "publisher": "Publisher",
+    "releaseDate": "ReleaseDate",
+    "tags": "Tags",
+    "rating": "Rating",
+    "categoryId": "CategoryId",
+    "subCategoryId": "SubCategoryId",
+    "status": "Status",
+    "addGame": "Add Game",
+    "editGame": "Edit Game",
+    "gameList": "Game List"
+  }
+}

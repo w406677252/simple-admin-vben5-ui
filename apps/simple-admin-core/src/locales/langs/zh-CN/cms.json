@@ -1,0 +1,45 @@
+{
+  "software": {
+    "softId": "软件ID",
+    "softName": "软件名称",
+    "logoFile": "Logo文件",
+    "downloadCount": "下载次数",
+    "version": "版本",
+    "installFileSize": "安装文件大小",
+    "captureFileList": "游戏截图演示",
+    "detailInfo": "详细信息",
+    "detailTag": "详细标签",
+    "warmTips": "温馨提示",
+    "whatNew": "更新内容",
+    "downloadUrl": "下载地址",
+    "score": "评分",
+    "webOrApp": "Web或App",
+    "platform": "平台",
+    "type": "类型",
+    "categoryId": "分类ID",
+    "tagId": "标签ID",
+    "status": "状态",
+    "addSoftware": "添加软件",
+    "editSoftware": "编辑软件",
+    "softwareList": "软件列表"
+  },
+  "softwareCategory": {
+    "status": "状态",
+    "classId": "分类ID",
+    "className": "分类名称",
+    "sort": "排序",
+    "addSoftwareCategory": "添加分类",
+    "editSoftwareCategory": "编辑分类",
+    "softwareCategoryList": "分类列表"
+  },
+  "softwareTag": {
+    "status": "状态",
+    "tagId": "标签ID",
+    "tagName": "标签名称",
+    "categoryId": "分类ID",
+    "sort": "排序",
+    "addSoftwareTag": "添加标签",
+    "editSoftwareTag": "编辑标签",
+    "softwareTagList": "标签列表"
+  }
+}
