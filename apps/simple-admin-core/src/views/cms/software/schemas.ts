@@ -11,7 +11,6 @@ import { Switch } from 'ant-design-vue';
 import { z } from '#/adapter/form';
 import { updateSoftware } from '#/api/cms/software';
 import { getSoftwareCategoryList } from '#/api/cms/softwareCategory';
-import { getSoftwareTagList } from '#/api/cms/softwareTag';
 import { getFileList } from '#/api/fms/file';
 
 export const tableColumns: VxeGridProps = {
@@ -75,14 +74,9 @@ export const tableColumns: VxeGridProps = {
     {
       title: $t('cms.software.type'),
       field: 'type',
-    },
-    {
-      title: $t('cms.software.categoryId'),
-      field: 'categoryId',
-    },
-    {
-      title: $t('cms.software.tagId'),
-      field: 'tagId',
+      slots: {
+        default: (e) => (e.row.type?.label === 'game' ? '游戏' : '-'),
+      },
     },
     {
       title: $t('common.status'),
@@ -135,16 +129,6 @@ export const searchFormSchemas: VbenFormProps = {
       fieldName: 'type',
       label: $t('cms.software.type'),
       component: 'Input',
-    },
-    {
-      fieldName: 'categoryId',
-      label: $t('cms.software.categoryId'),
-      component: 'InputNumber',
-    },
-    {
-      fieldName: 'tagId',
-      label: $t('cms.software.tagId'),
-      component: 'InputNumber',
     },
     {
       fieldName: 'status',
@@ -265,27 +249,27 @@ export const dataFormSchemas: VbenFormProps = {
       },
       rules: 'required',
     },
-    {
-      fieldName: 'tagId',
-      label: $t('cms.softwareTag.tagName'),
-      component: 'ApiSelect',
-      componentProps: {
-        api: getSoftwareTagList,
-        params: {
-          page: 1,
-          pageSize: 1000,
-          tagName: '',
-        },
-        resultField: 'data.data',
-        labelField: 'tagName',
-        valueField: 'id',
-        placeholder: $t('cms.softwareTag.tagName'),
-      },
-      dependencies: {
-        triggerFields: ['categoryId'],
-      },
-      rules: 'required',
-    },
+    // {
+    //   fieldName: 'tagId',
+    //   label: $t('cms.softwareTag.tagName'),
+    //   component: 'ApiSelect',
+    //   componentProps: {
+    //     api: getSoftwareTagList,
+    //     params: {
+    //       page: 1,
+    //       pageSize: 1000,
+    //       tagName: '',
+    //     },
+    //     resultField: 'data.data',
+    //     labelField: 'tagName',
+    //     valueField: 'id',
+    //     placeholder: $t('cms.softwareTag.tagName'),
+    //   },
+    //   dependencies: {
+    //     triggerFields: ['categoryId'],
+    //   },
+    //   rules: 'required',
+    // },
     {
       fieldName: 'detailTag',
       label: $t('cms.software.detailTag'),
@@ -322,9 +306,21 @@ export const dataFormSchemas: VbenFormProps = {
           pageSize: 1000,
         },
         resultField: 'data.data',
-        labelField: 'publicPath',
+        labelField: 'name',
         valueField: 'id',
-        searchField: 'publicPath',
+        searchField: 'name',
+        emitOption: true, // 确保onChange返回完整的选项对象
+      },
+      rules: 'required',
+    },
+    {
+      fieldName: 'installFileSize',
+      label: `${$t('cms.software.installFileSize')}(B)`,
+      component: 'Input',
+      componentProps: {
+        placeholder: $t('cms.software.installFileSize'),
+        readonly: true,
+        disabled: true,
       },
     },
     {
@@ -361,27 +357,22 @@ export const dataFormSchemas: VbenFormProps = {
     {
       fieldName: 'downloadCount',
       label: $t('cms.software.downloadCount'),
-      component: 'Input',
+      component: 'InputNumber',
       componentProps: {
-        defaultValue: '0',
+        defaultValue: 0,
         placeholder: $t('cms.software.downloadCount'),
       },
     },
     {
       fieldName: 'score',
       label: $t('cms.software.score'),
-      component: 'Input',
+      component: 'Rate',
       componentProps: {
-        defaultValue: '1',
+        allowHalf: false, // 允许半星评分
+        max: 5, // 最大评分5星
+        tooltips: ['1', '2', '3', '4', '5'],
         placeholder: $t('cms.software.score'),
       },
-      // component: 'Rate',
-      // componentProps: {
-      //   allowHalf: true, // 允许半星评分
-      //   max: 10, // 最大评分10星
-      //   tooltips: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-      //   placeholder: $t('cms.software.score'),
-      // },
     },
     {
       fieldName: 'status',
