@@ -75,7 +75,7 @@ export const tableColumns: VxeGridProps = {
       title: $t('cms.software.type'),
       field: 'type',
       slots: {
-        default: (e) => (e.row.type?.label === 'game' ? '游戏' : '-'),
+        default: (e) => (e.row.type === 'game' ? '游戏' : '-'),
       },
     },
     {
@@ -106,34 +106,14 @@ export const tableColumns: VxeGridProps = {
 export const searchFormSchemas: VbenFormProps = {
   schema: [
     {
+      fieldName: 'softId',
+      label: $t('cms.software.softId'),
+      component: 'Input',
+    },
+    {
       fieldName: 'softName',
       label: $t('cms.software.softName'),
       component: 'Input',
-    },
-    {
-      fieldName: 'version',
-      label: $t('cms.software.version'),
-      component: 'Input',
-    },
-    {
-      fieldName: 'webOrApp',
-      label: $t('cms.software.webOrApp'),
-      component: 'Input',
-    },
-    {
-      fieldName: 'platform',
-      label: $t('cms.software.platform'),
-      component: 'Input',
-    },
-    {
-      fieldName: 'type',
-      label: $t('cms.software.type'),
-      component: 'Input',
-    },
-    {
-      fieldName: 'status',
-      label: $t('cms.software.status'),
-      component: 'InputNumber',
     },
   ],
 };
