@@ -31,12 +31,6 @@ export default defineConfig(async () => {
             target: 'http://localhost:9200/',
             ws: true,
           },
-          '/game-api': {
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/game-api/, ''),
-            target: 'http://localhost:9200/',
-            ws: true,
-          },
         },
       },
     },

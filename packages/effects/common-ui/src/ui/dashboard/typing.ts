@@ -3,9 +3,11 @@ import type { Component } from 'vue';
 interface AnalysisOverviewItem {
   icon: Component | string;
   title: string;
+  value: number | string;
   totalTitle: string;
-  totalValue: number;
-  value: number;
+  totalValue: number | string;
+  changeRate?: string;
+  isPercent?: boolean;
 }
 
 interface WorkbenchProjectItem {

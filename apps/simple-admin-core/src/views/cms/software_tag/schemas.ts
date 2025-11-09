@@ -16,10 +16,9 @@ export const tableColumns: VxeGridProps = {
       type: 'checkbox',
       width: 60,
     },
-
     {
       title: $t('cms.softwareTag.tagId'),
-      field: 'tagId',
+      field: 'id',
     },
     {
       title: $t('cms.softwareTag.tagName'),
@@ -87,19 +86,14 @@ export const dataFormSchemas: VbenFormProps = {
       },
     },
     {
-      fieldName: 'tagId',
-      label: $t('cms.softwareTag.tagId'),
-      component: 'Input',
-    },
-    {
       fieldName: 'tagName',
       label: $t('cms.softwareTag.tagName'),
       component: 'Input',
     },
     {
       fieldName: 'categoryId',
-      label: $t('cms.softwareTag.categoryId'),
-      component: 'InputNumber',
+      label: $t('cms.softwareCategory.className'),
+      component: 'Input',
     },
     {
       fieldName: 'sort',

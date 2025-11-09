@@ -10,6 +10,9 @@ import { Switch } from 'ant-design-vue';
 
 import { z } from '#/adapter/form';
 import { updateSoftware } from '#/api/cms/software';
+import { getSoftwareCategoryList } from '#/api/cms/softwareCategory';
+import { getSoftwareTagList } from '#/api/cms/softwareTag';
+import { getFileList } from '#/api/fms/file';
 
 export const tableColumns: VxeGridProps = {
   columns: [
@@ -17,7 +20,6 @@ export const tableColumns: VxeGridProps = {
       type: 'checkbox',
       width: 60,
     },
-
     {
       title: $t('cms.software.softId'),
       field: 'softId',
@@ -29,6 +31,16 @@ export const tableColumns: VxeGridProps = {
     {
       title: $t('cms.software.logoFile'),
       field: 'logoFile',
+      slots: {
+        default: (e) =>
+          h('img', {
+            src: e.row.logoFile,
+            style: {
+              width: '40px',
+              height: '40px',
+            },
+          }),
+      },
     },
     {
       title: $t('cms.software.downloadCount'),
@@ -45,6 +57,8 @@ export const tableColumns: VxeGridProps = {
     {
       title: $t('cms.software.downloadUrl'),
       field: 'downloadUrl',
+      // 隐藏列
+      visible: false,
     },
     {
       title: $t('cms.software.score'),
@@ -158,6 +172,7 @@ export const dataFormSchemas: VbenFormProps = {
       componentProps: {
         placeholder: $t('cms.software.softId'),
       },
+      rules: z.string().max(10),
     },
     {
       fieldName: 'softName',
@@ -203,6 +218,7 @@ export const dataFormSchemas: VbenFormProps = {
           { label: 'App', value: 'app' },
         ],
       },
+      rules: 'required',
     },
     {
       fieldName: 'platform',
@@ -218,6 +234,7 @@ export const dataFormSchemas: VbenFormProps = {
           { label: 'Android', value: 'android' },
         ],
       },
+      rules: 'required',
     },
     {
       fieldName: 'type',
@@ -227,22 +244,47 @@ export const dataFormSchemas: VbenFormProps = {
         placeholder: $t('cms.software.type'),
         options: [{ label: '游戏', value: 'game' }],
       },
+      defaultValue: 'game',
+      rules: 'required',
     },
     {
       fieldName: 'categoryId',
-      label: $t('cms.software.categoryId'),
-      component: 'Select',
+      label: $t('cms.softwareCategory.className'),
+      component: 'ApiTreeSelect',
       componentProps: {
-        placeholder: $t('cms.software.categoryId'),
-        // 这里可以根据实际情况添加分类选项，暂时使用示例数据
-        options: [
-          { label: '工具软件', value: 1 },
-          { label: '娱乐软件', value: 2 },
-          { label: '办公软件', value: 3 },
-          { label: '开发软件', value: 4 },
-          { label: '其他', value: 5 },
-        ],
+        api: getSoftwareCategoryList,
+        params: {
+          page: 1,
+          pageSize: 1000,
+          name: '',
+        },
+        resultField: 'data.data',
+        labelField: 'className',
+        valueField: 'id',
+        immediate: true,
       },
+      rules: 'required',
+    },
+    {
+      fieldName: 'tagId',
+      label: $t('cms.softwareTag.tagName'),
+      component: 'ApiSelect',
+      componentProps: {
+        api: getSoftwareTagList,
+        params: {
+          page: 1,
+          pageSize: 1000,
+          tagName: '',
+        },
+        resultField: 'data.data',
+        labelField: 'tagName',
+        valueField: 'id',
+        placeholder: $t('cms.softwareTag.tagName'),
+      },
+      dependencies: {
+        triggerFields: ['categoryId'],
+      },
+      rules: 'required',
     },
     {
       fieldName: 'detailTag',
@@ -272,17 +314,17 @@ export const dataFormSchemas: VbenFormProps = {
     {
       fieldName: 'downloadUrl',
       label: $t('cms.software.downloadUrl'),
-      component: 'Input',
+      component: 'ApiSelect',
       componentProps: {
-        placeholder: $t('cms.software.downloadUrl'),
-      },
-    },
-    {
-      fieldName: 'installFileSize',
-      label: $t('cms.software.installFileSize'),
-      component: 'Input',
-      componentProps: {
-        placeholder: $t('cms.software.installFileSize'),
+        api: getFileList,
+        params: {
+          page: 1,
+          pageSize: 1000,
+        },
+        resultField: 'data.data',
+        labelField: 'publicPath',
+        valueField: 'id',
+        searchField: 'publicPath',
       },
     },
     {
@@ -292,6 +334,8 @@ export const dataFormSchemas: VbenFormProps = {
       componentProps: {
         placeholder: $t('cms.software.detailInfo'),
         rows: 4,
+        uploadProvider: 'local',
+        disabledUpload: true,
       },
     },
     {
@@ -301,6 +345,8 @@ export const dataFormSchemas: VbenFormProps = {
       componentProps: {
         placeholder: $t('cms.software.whatNew'),
         rows: 3,
+        uploadProvider: 'local',
+        disabledUpload: true,
       },
     },
     {

@@ -8,7 +8,12 @@ import { $t } from '@vben/locales';
 
 import { Switch } from 'ant-design-vue';
 
-import { updateSoftwareCategory } from '#/api/cms/softwareCategory';
+import { z } from '#/adapter/form';
+import {
+  getSoftwareCategoryList,
+  updateSoftwareCategory,
+} from '#/api/cms/softwareCategory';
+import { ParentCategoryIdEnum } from '#/enums/common';
 
 export const tableColumns: VxeGridProps = {
   columns: [
@@ -16,14 +21,17 @@ export const tableColumns: VxeGridProps = {
       type: 'checkbox',
       width: 60,
     },
-
-    {
-      title: $t('cms.softwareCategory.classId'),
-      field: 'classId',
-    },
     {
       title: $t('cms.softwareCategory.className'),
       field: 'className',
+      treeNode: true,
+    },
+    {
+      title: $t('cms.software.type'),
+      field: 'type',
+      formatter: (e) => {
+        return e.row.type === 'game' ? '游戏' : '其他';
+      },
     },
     {
       title: $t('cms.softwareCategory.sort'),
@@ -67,6 +75,7 @@ export const searchFormSchemas: VbenFormProps = {
       fieldName: 'className',
       label: $t('cms.softwareCategory.className'),
       component: 'Input',
+      rules: z.string().max(50).optional(),
     },
   ],
 };
@@ -83,14 +92,42 @@ export const dataFormSchemas: VbenFormProps = {
       },
     },
     {
-      fieldName: 'classId',
-      label: $t('cms.softwareCategory.classId'),
-      component: 'Input',
-    },
-    {
       fieldName: 'className',
       label: $t('cms.softwareCategory.className'),
       component: 'Input',
+      rules: z.string().min(1).max(50),
+    },
+    {
+      fieldName: 'type',
+      label: $t('cms.software.type'),
+      component: 'Select',
+      componentProps: {
+        options: [{ label: '游戏', value: 'game' }],
+      },
+      defaultValue: 'game',
+    },
+    {
+      fieldName: 'parentId',
+      label: $t('sys.department.parentId'),
+      component: 'ApiTreeSelect',
+      rules: 'required',
+      componentProps: {
+        api: getSoftwareCategoryList,
+        params: {
+          page: 1,
+          pageSize: 1000,
+        },
+        resultField: 'data.data',
+        labelField: 'className',
+        valueField: 'id',
+        defaultValue: {
+          id: ParentCategoryIdEnum.DEFAULT,
+          parentId: -1,
+          label: '一级分类',
+          value: ParentCategoryIdEnum.DEFAULT,
+        },
+      },
+      defaultValue: ParentCategoryIdEnum.DEFAULT,
     },
     {
       fieldName: 'sort',

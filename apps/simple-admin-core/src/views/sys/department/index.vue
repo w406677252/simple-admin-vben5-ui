@@ -1,10 +1,13 @@
 <script lang="ts" setup>
+import type { VbenFormProps } from '@vben/common-ui';
+
 import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table';
 import type { DepartmentInfo } from '#/api/sys/model/departmentModel';
+import type { ActionItem } from '#/components/table/table-action';
 
 import { h, ref } from 'vue';
 
-import { Page, useVbenModal, type VbenFormProps } from '@vben/common-ui';
+import { Page, useVbenModal } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import { Button, Modal } from 'ant-design-vue';
@@ -12,7 +15,7 @@ import { isPlainObject } from 'remeda';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteDepartment, getDepartmentList } from '#/api/sys/department';
-import { type ActionItem, TableAction } from '#/components/table/table-action';
+import { TableAction } from '#/components/table/table-action';
 
 import DepartmentForm from './form.vue';
 import { searchFormSchemas, tableColumns } from './schemas';

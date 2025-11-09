@@ -1,9 +1,12 @@
 <script lang="ts" setup>
+import type { VbenFormProps } from '@vben/common-ui';
+
 import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table';
+import type { ActionItem } from '#/components/table/table-action';
 
 import { h, ref } from 'vue';
 
-import { Page, useVbenModal, type VbenFormProps } from '@vben/common-ui';
+import { Page, useVbenModal } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import { useClipboard } from '@vueuse/core';
@@ -13,7 +16,7 @@ import { isPlainObject } from 'remeda';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteFile, downloadFile, getFileList } from '#/api/fms/file';
 import { UploadDragger } from '#/components/form';
-import { type ActionItem, TableAction } from '#/components/table/table-action';
+import { TableAction } from '#/components/table/table-action';
 
 import FileForm from './form.vue';
 import { searchFormSchemas, tableColumns } from './schemas';
