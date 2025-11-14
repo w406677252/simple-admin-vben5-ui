@@ -6,6 +6,7 @@
     "downloadCount": "下载次数",
     "version": "版本",
     "installFileSize": "安装文件大小",
+    "fileSizeUnit": "文件大小单位",
     "captureFileList": "游戏截图演示",
     "detailInfo": "详细信息",
     "detailTag": "详细标签",

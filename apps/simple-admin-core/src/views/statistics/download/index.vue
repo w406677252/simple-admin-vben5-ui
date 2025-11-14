@@ -609,7 +609,7 @@ onMounted(() => {
               {{ item.visits }}
             </td>
             <td style="padding: 12px 0; text-align: center">
-              <span style="color: #10b981">{{ item.conversionRate }}%</span>
+              {{ Number(item.conversionRate).toFixed(2) }}%
             </td>
             <td style="padding: 12px 0; text-align: center">
               {{ item.links }}

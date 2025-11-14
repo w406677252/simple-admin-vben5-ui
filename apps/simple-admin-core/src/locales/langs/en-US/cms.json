@@ -6,6 +6,7 @@
     "downloadCount": "DownloadCount",
     "version": "Version",
     "installFileSize": "InstallFileSize",
+    "fileSizeUnit": "FileSizeUnit",
     "captureFileList": "CaptureFileList",
     "detailInfo": "DetailInfo",
     "detailTag": "DetailTag",
@@ -35,25 +36,6 @@
   "softwareTag": {
     "status": "Status",
     "tagId": "TagId",
-    "tagName": "TagName",
-    "categoryId": "CategoryId",
-    "sort": "Sort",
-    "addSoftwareTag": "Add SoftwareTag",
-    "editSoftwareTag": "Edit SoftwareTag",
-    "softwareTagList": "SoftwareTag List"
-  },
-  "softwareCategory": {
-    "status": "Status",
-    "className": "ClassName",
-    "parentId": "ParentId",
-    "type": "Type",
-    "sort": "Sort",
-    "addSoftwareCategory": "Add SoftwareCategory",
-    "editSoftwareCategory": "Edit SoftwareCategory",
-    "softwareCategoryList": "SoftwareCategory List"
-  },
-  "softwareTag": {
-    "status": "Status",
     "tagName": "TagName",
     "categoryId": "CategoryId",
     "sort": "Sort",

@@ -34,6 +34,11 @@ export const tableColumns: VxeGridProps = {
       },
     },
     {
+      title: $t('cms.software.webOrApp'),
+      field: 'webOrApp',
+      formatter: (e) => (e.row.webOrApp === 'web' ? '客户端程序' : '应用软件'),
+    },
+    {
       title: $t('cms.softwareCategory.sort'),
       field: 'sort',
     },
@@ -77,6 +82,17 @@ export const searchFormSchemas: VbenFormProps = {
       component: 'Input',
       rules: z.string().max(50).optional(),
     },
+    {
+      label: $t('cms.software.webOrApp'),
+      fieldName: 'webOrApp',
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '网页', value: 'web' },
+          { label: '应用', value: 'app' },
+        ],
+      },
+    },
   ],
 };
 
@@ -107,6 +123,17 @@ export const dataFormSchemas: VbenFormProps = {
       defaultValue: 'game',
     },
     {
+      fieldName: 'webOrApp',
+      label: $t('cms.software.webOrApp'),
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '客户端程序', value: 'web' },
+          { label: '应用软件', value: 'app' },
+        ],
+      },
+    },
+    {
       fieldName: 'parentId',
       label: $t('sys.department.parentId'),
       component: 'ApiTreeSelect',
@@ -116,6 +143,7 @@ export const dataFormSchemas: VbenFormProps = {
         params: {
           page: 1,
           pageSize: 1000,
+          webOrApp: 'app',
         },
         resultField: 'data.data',
         labelField: 'className',
@@ -128,6 +156,18 @@ export const dataFormSchemas: VbenFormProps = {
         },
       },
       defaultValue: ParentCategoryIdEnum.DEFAULT,
+      dependencies: {
+        componentProps(values) {
+          return {
+            params: {
+              page: 1,
+              pageSize: 1000,
+              webOrApp: values.webOrApp,
+            },
+          };
+        },
+        triggerFields: ['webOrApp'],
+      },
     },
     {
       fieldName: 'sort',

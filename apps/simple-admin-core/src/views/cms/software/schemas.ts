@@ -11,7 +11,6 @@ import { Switch } from 'ant-design-vue';
 import { z } from '#/adapter/form';
 import { updateSoftware } from '#/api/cms/software';
 import { getSoftwareCategoryList } from '#/api/cms/softwareCategory';
-import { getFileList } from '#/api/fms/file';
 
 export const tableColumns: VxeGridProps = {
   columns: [
@@ -52,6 +51,8 @@ export const tableColumns: VxeGridProps = {
     {
       title: $t('cms.software.installFileSize'),
       field: 'installFileSize',
+      formatter: (e) =>
+        `${Number(e.row.installFileSize).toFixed(2)}${e.row.fileSizeUnit}`,
     },
     {
       title: $t('cms.software.downloadUrl'),
@@ -66,6 +67,7 @@ export const tableColumns: VxeGridProps = {
     {
       title: $t('cms.software.webOrApp'),
       field: 'webOrApp',
+      formatter: (e) => (e.row.webOrApp === 'web' ? '客户端程序' : '应用软件'),
     },
     {
       title: $t('cms.software.platform'),
@@ -178,8 +180,8 @@ export const dataFormSchemas: VbenFormProps = {
       componentProps: {
         placeholder: $t('cms.software.webOrApp'),
         options: [
-          { label: 'Web', value: 'web' },
-          { label: 'App', value: 'app' },
+          { label: '客户端程序', value: 'web' },
+          { label: '应用软件', value: 'app' },
         ],
       },
       rules: 'required',
@@ -190,13 +192,26 @@ export const dataFormSchemas: VbenFormProps = {
       component: 'Select',
       componentProps: {
         placeholder: $t('cms.software.platform'),
-        options: [
-          { label: 'Windows', value: 'windows' },
-          { label: 'macOS', value: 'macos' },
-          { label: 'Linux', value: 'linux' },
-          { label: 'iOS', value: 'ios' },
-          { label: 'Android', value: 'android' },
-        ],
+        options: [],
+      },
+      dependencies: {
+        componentProps(values) {
+          return values.webOrApp === 'web'
+            ? {
+                options: [
+                  { label: 'Windows', value: 'windows' },
+                  { label: 'macOS', value: 'macos' },
+                  { label: 'Linux', value: 'linux' },
+                ],
+              }
+            : {
+                options: [
+                  { label: 'iOS', value: 'ios' },
+                  { label: 'Android', value: 'android' },
+                ],
+              };
+        },
+        triggerFields: ['webOrApp'],
       },
       rules: 'required',
     },
@@ -220,53 +235,44 @@ export const dataFormSchemas: VbenFormProps = {
         params: {
           page: 1,
           pageSize: 1000,
-          name: '',
+          webOrApp: '',
         },
         resultField: 'data.data',
         labelField: 'className',
         valueField: 'id',
         immediate: true,
       },
+      dependencies: {
+        componentProps(values) {
+          return {
+            params: {
+              page: 1,
+              pageSize: 1000,
+              webOrApp: values.webOrApp,
+            },
+          };
+        },
+        triggerFields: ['webOrApp'],
+      },
       rules: 'required',
     },
     // {
-    //   fieldName: 'tagId',
-    //   label: $t('cms.softwareTag.tagName'),
-    //   component: 'ApiSelect',
+    //   fieldName: 'detailTag',
+    //   label: $t('cms.software.detailTag'),
+    //   component: 'Select',
     //   componentProps: {
-    //     api: getSoftwareTagList,
-    //     params: {
-    //       page: 1,
-    //       pageSize: 1000,
-    //       tagName: '',
-    //     },
-    //     resultField: 'data.data',
-    //     labelField: 'tagName',
-    //     valueField: 'id',
-    //     placeholder: $t('cms.softwareTag.tagName'),
+    //     placeholder: $t('cms.software.detailTag'),
+    //     mode: 'multiple',
+    //     // 这里可以根据实际情况添加标签选项，暂时使用示例数据
+    //     options: [
+    //       { label: '高效', value: '高效' },
+    //       { label: '轻量', value: '轻量' },
+    //       { label: '强大', value: '强大' },
+    //       { label: '易用', value: '易用' },
+    //       { label: '安全', value: '安全' },
+    //     ],
     //   },
-    //   dependencies: {
-    //     triggerFields: ['categoryId'],
-    //   },
-    //   rules: 'required',
     // },
-    {
-      fieldName: 'detailTag',
-      label: $t('cms.software.detailTag'),
-      component: 'Select',
-      componentProps: {
-        placeholder: $t('cms.software.detailTag'),
-        mode: 'multiple',
-        // 这里可以根据实际情况添加标签选项，暂时使用示例数据
-        options: [
-          { label: '高效', value: '高效' },
-          { label: '轻量', value: '轻量' },
-          { label: '强大', value: '强大' },
-          { label: '易用', value: '易用' },
-          { label: '安全', value: '安全' },
-        ],
-      },
-    },
     {
       fieldName: 'version',
       label: $t('cms.software.version'),
@@ -278,30 +284,46 @@ export const dataFormSchemas: VbenFormProps = {
     {
       fieldName: 'downloadUrl',
       label: $t('cms.software.downloadUrl'),
-      component: 'ApiSelect',
+      // component: 'ApiSelect',
+      // componentProps: {
+      //   api: getFileList,
+      //   params: {
+      //     page: 1,
+      //     pageSize: 1000,
+      //   },
+      //   resultField: 'data.data',
+      //   labelField: 'name',
+      //   valueField: 'id',
+      //   searchField: 'name',
+      //   emitOption: true, // 确保onChange返回完整的选项对象
+      // },
+      component: 'Input',
       componentProps: {
-        api: getFileList,
-        params: {
-          page: 1,
-          pageSize: 1000,
-        },
-        resultField: 'data.data',
-        labelField: 'name',
-        valueField: 'id',
-        searchField: 'name',
-        emitOption: true, // 确保onChange返回完整的选项对象
+        placeholder: $t('cms.software.downloadUrl'),
       },
       rules: 'required',
     },
     {
       fieldName: 'installFileSize',
-      label: `${$t('cms.software.installFileSize')}(B)`,
+      label: `${$t('cms.software.installFileSize')}`,
       component: 'Input',
       componentProps: {
         placeholder: $t('cms.software.installFileSize'),
-        readonly: true,
-        disabled: true,
       },
+      rules: z.number().max(1000, '安装文件大小不能超过1000'),
+    },
+    {
+      fieldName: 'fileSizeUnit',
+      label: $t('cms.software.fileSizeUnit'),
+      component: 'Select',
+      componentProps: {
+        placeholder: $t('cms.software.fileSizeUnit'),
+        options: [
+          { label: 'GB', value: 'GB' },
+          { label: 'MB', value: 'MB' },
+        ],
+      },
+      defaultValue: 'GB',
     },
     {
       fieldName: 'detailInfo',

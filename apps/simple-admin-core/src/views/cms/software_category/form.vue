@@ -36,7 +36,26 @@ async function onSubmit(values: Record<string, any>) {
 
 const [Form, formApi] = useVbenForm({
   handleSubmit: onSubmit,
-  schema: [...(dataFormSchemas.schema as any)],
+  schema: (dataFormSchemas.schema as any[]).map((schema) => {
+    // 特别处理 downloadUrl 字段
+    if (schema.fieldName === 'parentId') {
+      return {
+        ...schema,
+        componentProps: {
+          ...schema.componentProps,
+          onChange: (value: string, option: { size?: number }) => {
+            if (option && option.size !== undefined) {
+              // 使用 formApi 设置字段值
+              formApi.setFieldValue('installFileSize', `${option.size}`);
+            }
+            // 调用原有的 onChange（如果有的话）
+            schema.componentProps?.onChange?.(value, option);
+          },
+        },
+      };
+    }
+    return schema;
+  }),
   showDefaultActions: false,
   layout: 'vertical',
 });
