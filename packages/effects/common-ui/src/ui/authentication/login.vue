@@ -3,14 +3,15 @@ import type { VbenFormSchema } from '@vben-core/form-ui';
 
 import type { AuthenticationProps } from './types';
 
-import { $t } from '@vben/locales';
-import { useVbenForm } from '@vben-core/form-ui';
-import { VbenButton, VbenCheckbox } from '@vben-core/shadcn-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { $t } from '@vben/locales';
+
+import { useVbenForm } from '@vben-core/form-ui';
+import { VbenButton, VbenCheckbox } from '@vben-core/shadcn-ui';
+
 import Title from './auth-title.vue';
-import ThirdPartyLogin from './third-party-login.vue';
 
 interface Props extends AuthenticationProps {
   formSchema?: VbenFormSchema[];
@@ -84,9 +85,9 @@ defineExpose({
   getFormApi: () => formApi,
 });
 
-function handleOauthLogin(provider: string) {
-  emit('oauthLogin', provider);
-}
+// function handleOauthLogin(provider: string) {
+//   emit('oauthLogin', provider);
+// }
 </script>
 
 <template>
@@ -142,7 +143,7 @@ function handleOauthLogin(provider: string) {
       {{ submitButtonText || $t('common.login') }}
     </VbenButton>
 
-    <div
+    <!-- <div
       v-if="showCodeLogin || showQrcodeLogin"
       class="mb-2 mt-4 flex items-center justify-between"
     >
@@ -162,10 +163,10 @@ function handleOauthLogin(provider: string) {
       >
         {{ $t('authentication.qrcodeLogin') }}
       </VbenButton>
-    </div>
+    </div> -->
 
     <!-- 第三方登录 -->
-    <slot name="third-party-login">
+    <!-- <slot name="third-party-login">
       <ThirdPartyLogin
         v-if="showThirdPartyLogin"
         :icon-list="props.thirdPartyProviderList"
@@ -183,6 +184,6 @@ function handleOauthLogin(provider: string) {
           {{ $t('authentication.createAccount') }}
         </span>
       </div>
-    </slot>
+    </slot> -->
   </div>
 </template>

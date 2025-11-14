@@ -1,15 +1,19 @@
 <script lang="ts" setup>
-import type { VbenFormSchema } from '#/adapter/form';
 import type { BasicOption } from '@vben/types';
+
+import type { VbenFormSchema } from '#/adapter/form';
+
+import { computed, h, ref } from 'vue';
+
+import { AuthenticationLogin, z } from '@vben/common-ui';
+import { $t } from '@vben/locales';
+import { usePreferences } from '@vben/preferences';
+
+import { Image } from 'ant-design-vue';
 
 import { getCaptcha, getEmailCaptcha, getSmsCaptcha } from '#/api/sys/captcha';
 import { oauthLogin } from '#/api/sys/oauthProvider';
 import { useAuthStore } from '#/store';
-import { AuthenticationLogin, z } from '@vben/common-ui';
-import { $t } from '@vben/locales';
-import { usePreferences } from '@vben/preferences';
-import { Image } from 'ant-design-vue';
-import { computed, h, ref } from 'vue';
 
 defineOptions({ name: 'Login' });
 
@@ -22,14 +26,14 @@ const loginType: BasicOption[] = [
     label: $t('sys.login.captcha'),
     value: 'captcha',
   },
-  {
-    label: $t('sys.login.mobile'),
-    value: 'mobile',
-  },
-  {
-    label: $t('sys.login.email'),
-    value: 'email',
-  },
+  // {
+  //   label: $t('sys.login.mobile'),
+  //   value: 'mobile',
+  // },
+  // {
+  //   label: $t('sys.login.email'),
+  //   value: 'email',
+  // },
 ];
 
 const imgPath = ref<string>('');

@@ -301,12 +301,12 @@ export const dataFormSchemas: VbenFormProps = {
       componentProps: {
         placeholder: $t('cms.software.downloadUrl'),
       },
-      rules: 'required',
+      rules: z.string().url('请输入正确的下载地址'),
     },
     {
       fieldName: 'installFileSize',
       label: `${$t('cms.software.installFileSize')}`,
-      component: 'Input',
+      component: 'InputNumber',
       componentProps: {
         placeholder: $t('cms.software.installFileSize'),
       },
